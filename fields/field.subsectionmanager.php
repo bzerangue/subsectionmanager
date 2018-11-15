@@ -673,7 +673,7 @@
 		 *
 		 * @see http://symphony-cms.com/learn/api/2.3/toolkit/field/#appendFormattedElement
 		 */
-		public function appendFormattedElement(&$wrapper, $data, $encode = false, $mode = null) {
+		public function appendFormattedElement(XMLElement &$wrapper, $data, $encode = false, $mode = null, $entry_id = null) {
 			static $done = array();
 
 			// Unify data
@@ -777,11 +777,11 @@
 		/**
 		 * @see http://symphony-cms.com/learn/api/2.3/toolkit/field/#prepareTableValue
 		 */
-		function prepareTableValue($data, XMLElement $link=null) {
+		function prepareTableValue($data, ?XMLElement $link = null, $entry_id = null) {
 			if(empty($data['relation_id'])) return null;
 
 			// Single select
-			if($this->get('allow_multiple') == 0 || count($data['relation_id']) === 1) {
+			if($this->get('allow_multiple') == 0 || count((array)$data['relation_id']) === 1) {
 				$subsection = new SubsectionManager();
 				$content = $subsection->generate($this->get('id'), $this->get('subsection_id'), $data, $this->get('recursion_levels'), SubsectionManager::GETPREVIEW);
 
@@ -822,7 +822,7 @@
 		/**
 		 * @see http://symphony-cms.com/learn/api/2.3/toolkit/field/#getParameterPoolValue
 		 */
-		public function getParameterPoolValue($data) {
+		public function getParameterPoolValue(array $data, $entry_id = null) {
 			return $data['relation_id'];
 		}
 

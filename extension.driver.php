@@ -357,7 +357,7 @@
 		/**
 		 * @see http://symphony-cms.com/learn/api/2.3/toolkit/extension/#update
 		 */
-		public function update($previousVersion) {
+		public function update($previousVersion = false) {
 			$status = array();
 
 			// Install missing tables
